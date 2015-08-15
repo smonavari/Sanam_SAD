@@ -1,0 +1,166 @@
+.floated_left {
+    float: left;
+    height: 70%;
+    min-height: 70%;
+    width: 20%;
+    margin-bottom: 1%;
+    margin-left: 6%;
+    margin-right: 1%;
+    margin-top: 0px;
+    border: 1px gainsboro solid;
+    overflow: auto;
+}
+
+.floated_right {
+    float: right;
+    height: 70%;
+    min-height: 70%;
+    width: 66%;
+    margin-bottom: 1%;
+    margin-left: 1%;
+    margin-right: 6%;
+    margin-top: 0px;
+    overflow: auto;
+}
+
+.strm {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    padding-top: 2%;
+    /*Image only BG fallback*/
+    
+    /*background = gradient + image pattern combo*/
+   
+font-family: 'Bitter', serif;
+}
+body, html{
+     height: 100%;
+     min-height: 100%;
+
+}
+
+.sid-but{
+    text-align: center;
+    padding-top: 1.5%;
+    padding-bottom: 1.5%;
+}
+
+.sid-head{
+    text-align: center;
+    padding-top: 2%;
+    padding-bottom: 2%;
+     background-color: #E6005C;
+    -webkit-box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.15);
+}
+.carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+      width: 50%;
+      height: 50%;
+      margin: auto;
+  }
+
+hr{
+    margin: 0px;
+    padding: 0px;
+}
+
+.ul_li{
+    width: 200px;
+    display: inline-block;
+    vertical-align: middle;
+    *display: inline;
+}
+
+h3{
+    color: white;
+}
+#describtion-tag{
+    border: 1px gainsboro solid ;
+  
+    width: 50%;
+    margin-top: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+}
+#address-tag{
+    border: 1px gainsboro solid ;
+  
+    width: 50%;
+    margin-top: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+}
+#phone-tag{
+    border: 1px gainsboro solid ;
+  
+    width: 50%;
+    margin-top: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+}
+
+#scorebox{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+
+
+
+
+div.stars {
+  width: 270px;
+  display: inline-block;
+}
+
+input.star { display: none; }
+
+label.star {
+  float: right;
+  padding: 10px;
+  font-size: 36px;
+  color: #444;
+  transition: all .2s;
+}
+
+input.star:checked ~ label.star:before {
+  content: '\f005';
+  color: #FD4;
+  transition: all .25s;
+}
+
+input.star-5:checked ~ label.star:before {
+  color: #FE7;
+  text-shadow: 0 0 20px #952;
+}
+
+input.star-1:checked ~ label.star:before { color: #F62; }
+
+label.star:hover { transform: rotate(-15deg) scale(1.3); }
+
+label.star:before {
+  content: '\f006';
+  font-family: FontAwesome;
+}
+
+.total_votes {
+    background: #eaeaea;
+    top: 58px;
+    left: 0;
+    padding: 5px;
+    position:   absolute;
+}
+.movie_choice {
+    font: 10px verdana, sans-serif;
+    margin: 0 auto 40px auto;
+    width: 180px;
+}

@@ -1,0 +1,42 @@
+{% extends "headerAfterLogin.html" %}
+{% load staticfiles %}
+{% block head %}
+
+{% endblock %}
+
+{% block main %}
+    <style xmlns="http://www.w3.org/1999/html">
+        body {
+            background-color: rgba(255, 0, 255, 0);
+        }
+
+    </style>
+    <!-- start -->
+
+    <div class="panel panel-default" style="border: none" style="width: 400px">
+        <div class="panel-heading">
+            <h1 class="panel-title" style="font-size: 30px"> لیست دسته ها</h1>
+        </div>
+        <table>
+            {% for category in categories %}
+            <tr>
+                <th>
+                    {{ category.name }}
+                </th>
+                <th>
+                    <a href="/category/remove/{{ category.pk }}">حذف</a>
+                </th>
+                     <th>
+                    <a href="/category/edit/{{ category.pk }}">ویرایش </a>
+                </th>
+            </tr>
+            {% endfor %}
+         </table>
+    </div>
+
+
+
+{% endblock %}
+
+
+

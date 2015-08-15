@@ -1,0 +1,123 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang=''>
+<head>
+   <meta charset='utf-8'>
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="{% static "css/styles.css"%}">
+   <script src="{% static "js/jquery-1.11.2.min.js"%}"></script>
+   <script src="{% static "js/bootstrap.min.js"%}"></script>
+   <script src="{% static "js/bootstrap.js"%}"></script>
+
+   <link rel="stylesheet" href="{% static "css/bootstrap.min.css"%}">
+   <link rel="stylesheet" href="{% static "css/bootstrap.css"%}">
+   <link rel="stylesheet" href="{% static "mainPageCssfile.css"%}" type="text/css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+   <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+    {% block head %}
+    {% endblock %}
+   <title>سامانه خرید بلیت اینترنتی صنم</title>
+
+</head>
+
+<body dir="rtl" id="#body">
+
+<div id='aboveHeader'>
+    <div class = "table-responsive">
+        <table class="table" width="100%">
+            <tr>
+                <td width="73%">
+                    <h1><img id="logo"src="{% static "images/logo.png" %}"></h1>
+                </td>
+                <td>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle profile-image" data-toggle="dropdown">
+                     {% with MEDIA_URL|add:request.user.userProfile.photo.url as urll %}
+                        <img src="{{ urll }}" class="img-circle special-img" style="width: 30px;height: 30px;"> {{ request.user.username }} <b class="caret"></b></a>
+                     {% endwith %}
+                    <ul class="dropdown-menu">
+                        <li><a href="UserN.html"><i class="fa fa-cog"></i> حساب کاربری</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/logout"><i class="fa fa-sign-out"></i> خروج</a></li>
+                    </ul>
+                </div>
+                <br />
+                <br />
+
+        <form class="navbar-form navbar-left" role="search" margin="0px" border="0px">
+                <span class="input-group">
+                    <input type="text" class="form-control" placeholder="جست و جو..." onClick="location.href='search.html'">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default">
+                        <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </span>
+        </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+    <div id='cssmenu' dir='rtl'>
+
+        <ul>
+            <li class='active has-sub'><a href='index.html'><span>خانه</span></a></li>
+            {% for cat in category %}
+                <li><a href="/category/events/{{ cat.pk }}">{{ cat.name }}</a>
+                    <ul>
+                        {% for subcat in  subcategories %}
+                            {% if subcat.superCategory == cat %}
+                                <li><a href="/subcategory/events/{{ subcat.pk }}">{{ subcat.name }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+    <div class="strm">
+        <div class="float-left">
+            {% for cat in category %}
+                <div>
+                        {% for top in cat.subcategories.eventsubcategories.all|dictsort:"avgrate"|slice:":3" %}
+                            <div class="sid-but"><a href="EventPage.html"><span style="color: white"> top.title </span></a></div>
+                        {% endfor %}
+                </div>
+            {% endfor %}
+
+        </div>
+
+        <!-- end of side bar-->
+        <div style="width: 66%; margin-left:5%;margin-right: 5%;height: 100%;overflow: auto">
+            {% block main %}
+
+            {% endblock %}
+        </div>
+    </div>
+        <!-- end of side bar-->
+
+
+        <!-- end of side bar-->
+        <!-- here is the start of the main part of the page-->
+
+    <!-- footer -->
+        <hr>
+        <div class="navbar navbar-bottom" style="margin: 0px;padding-left: 42%">
+                <span class="navbar-text" style="color: white">
+                    © صنم. همه حقوق این سامانه متعلق به گروه صنم است.
+                </span>
+        </div>
+
+</body>
+
+<html>
