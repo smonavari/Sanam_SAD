@@ -9,7 +9,7 @@ from Sanam.forms import *
 from django.http import Http404
 from django.views.generic import CreateView
 from django.forms.formsets import formset_factory
-
+from datetime import date
 
 num = 127000;
 # Create your views here.
@@ -247,8 +247,8 @@ def ticktypesel(request, ev_id):
 def Pardakht(request, ev_id):
     tempTicket.objects.all().delete();
     event = Event.objects.get(pk=ev_id)
-    if date.today() > event.startTime :
-        return render_to_response("notLogged.html",{} ,context_instance=RequestContext(request))
+#    if date.today() > event.startTime :
+#       return render_to_response("notLogged.html",{} ,context_instance=RequestContext(request))
     for field in event.ticktype.all():
         if int(request.POST[field.title]) > field.capacity:
             return render_to_response("error.html",{'remain':field.capacity,'type':field.title},context_instance=RequestContext(request));
