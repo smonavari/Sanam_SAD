@@ -67,7 +67,7 @@ class TicketType(models.Model):
     title = models.CharField(max_length=40, null=True)
     event = models.ForeignKey(Event, related_name="ticktype")
     price = models.IntegerField()
-    location = models.TextField()
+    location = models.TextField() 
     time = models.DateTimeField(null=True)
     capacity = models.IntegerField(default=0)
 

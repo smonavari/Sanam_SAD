@@ -53,11 +53,11 @@ urlpatterns = [
     url(r'^logout/$', 'Sanam.views.logout'),
 
 
-
-
     url(r'^ticktypesel/(?P<ev_id>[\d]+)$', 'Sanam.views.ticktypesel'),
     url(r'^Pardakht/(?P<ev_id>[\d]+)$', 'Sanam.views.Pardakht'),
-    url(r'^TrackingCodeShow$', 'Sanam.views.TrackingCode')
+    url(r'^TrackingCodeShow$', 'Sanam.views.TrackingCode'),
+    url(r'^print/(?P<order>[\d]+)$', 'Sanam.views.print'),
+    url(r'^UserProfile$', 'Sanam.views.profile')
 ]
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

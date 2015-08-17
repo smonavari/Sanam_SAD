@@ -243,15 +243,18 @@ def ticktypesel(request, ev_id):
     event = Event.objects.get(pk=ev_id)
     return render_to_response("TypeAndNum.html",{'ev':event,'ev_id':ev_id,'subcategories': Subcategory.objects.all(), 'category':Category.objects.all()},context_instance=RequestContext(request))
 
+@login_required
 def Pardakht(request, ev_id):
     tempTicket.objects.all().delete();
     event = Event.objects.get(pk=ev_id)
+    if date.today() > event.startTime :
+        return render_to_response("notLogged.html",{} ,context_instance=RequestContext(request))
     for field in event.ticktype.all():
         if int(request.POST[field.title]) > field.capacity:
             return render_to_response("error.html",{'remain':field.capacity,'type':field.title},context_instance=RequestContext(request));
     for field in event.ticktype.all():
         y = tempTicket(cap=int(request.POST[field.title]))
-        y.ticketType_id = field.pk
+        y.ticketType = field
         y.save()
     total = 0
     for field in event.ticktype.all():
@@ -266,19 +269,37 @@ def TrackingCode(request):
     username = None
     if request.user.is_authenticated():
         username = request.user.pk
-    x = OrderList(pursuitNum = num)
-    x.user_id = username
+    for i in Buyer.objects.all():
+        if i.pk == username:
+            break
+    x = OrderList(pursuitNum=num)
+    x.user = i
     x.save();
     num = num+1;
     for tt in TicketType.objects.all():
         for ti in tt.order.all():
-            tt.capacity=tt.capacity-ti.cap;
-            tt.save();
+            tt.capacity=tt.capacity-ti.cap
+            tt.save()
 
     for field in tempTicket.objects.all():
-        for i in range(field.cap):
-            y = Ticket();
-            y.ticketType = field.ticketType;
-            y.orderList_id = x.pk;
-            y.save();
+            y = Ticket(cap = field.cap)
+            y.ticketType = field.ticketType
+            y.orderList = x
+            y.save()
     return render_to_response("TrackingCode.html",{'orderList':x,'tickets':tempTicket.objects.all()},context_instance=RequestContext(request))
+
+def profile(request):
+    username = None
+    if request.user.is_authenticated():
+        username = request.user.pk
+    for i in Buyer.objects.all():
+        if i.pk == username:
+            break
+    return render_to_response("UserProfile.html",{'user':i,'subcategories': Subcategory.objects.all(), 'category':Category.objects.all()},context_instance=RequestContext(request))
+
+def print(request, order):
+    ticks = None
+    for ord in OrderList.objects.all():
+        if ord.pursuitNum==order:
+            ticks = ord.orderlisttick.all()
+    return render_to_response("print.html",{'tickets':ticks,'orderNum':order}, context_instance=RequestContext(request))
