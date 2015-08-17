@@ -53,6 +53,8 @@ urlpatterns = [
     url(r'^logout/$', 'Sanam.views.logout'),
 
 
+
+
     url(r'^ticktypesel/(?P<ev_id>[\d]+)$', 'Sanam.views.ticktypesel'),
     url(r'^Pardakht/(?P<ev_id>[\d]+)$', 'Sanam.views.Pardakht'),
     url(r'^TrackingCodeShow$', 'Sanam.views.TrackingCode'),

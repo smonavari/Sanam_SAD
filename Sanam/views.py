@@ -11,7 +11,7 @@ from django.views.generic import CreateView
 from django.forms.formsets import formset_factory
 from datetime import date
 
-num = 127000;
+num = 127000
 # Create your views here.
 def mainPage(request):
     latestevent = Event.objects.all().order_by('-addtime')[:4]
@@ -199,6 +199,7 @@ def category(request):
     return render_to_response("CategoryList.html",{'categories':Category.objects.all(),'subcategories': Subcategory.objects.all(), 'category':Category.objects.all()},context_instance=RequestContext(request))
 def subcategory(request):
     return render_to_response("SubCategoryList.html",{'subcategories':Subcategory.objects.all(), 'category':Category.objects.all()},context_instance=RequestContext(request))
+
 @login_required
 def removesubCategory(request, subcategory_id):
     Subcategory.objects.get(pk=subcategory_id).delete()
@@ -273,7 +274,7 @@ def TrackingCode(request):
         if i.pk == username:
             break
     x = OrderList(pursuitNum=num)
-    x.user = i
+    x.user = i;
     x.save();
     num = num+1;
     for tt in TicketType.objects.all():

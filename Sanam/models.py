@@ -61,19 +61,20 @@ class Event(models.Model):
 class OrderList(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     pursuitNum = models.CharField(max_length=14)
-    user = models.ForeignKey(Buyer)
+    user = models.ForeignKey(Buyer, related_name="buyer")
 
 class TicketType(models.Model):
     title = models.CharField(max_length=40, null=True)
     event = models.ForeignKey(Event, related_name="ticktype")
     price = models.IntegerField()
-    location = models.TextField() 
+    location = models.TextField()
     time = models.DateTimeField(null=True)
     capacity = models.IntegerField(default=0)
 
 class Ticket(models.Model):
     ticketType = models.ForeignKey(TicketType)
-    orderList = models.ForeignKey(OrderList)
+    orderList = models.ForeignKey(OrderList, related_name="orderlisttick")
+    cap = models.IntegerField(default=0)
 
 
 class tempTicket(models.Model):
