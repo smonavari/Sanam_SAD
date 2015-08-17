@@ -1,0 +1,55 @@
+{% extends "headerAfterLogin.html" %}
+{% load staticfiles %}
+{% block head %}
+
+{% endblock %}
+
+{% block main %}
+    <style>
+        body {
+            background-color: rgba(255, 0, 255, 0);
+        }
+
+    </style>
+    <!-- start -->
+
+    <div class="panel panel-default" style="border: none" style="width: 400px">
+        <div class="panel-heading">
+            <h1 class="panel-title" style="font-size: 30px">افزودن دسته جدید</h1>
+        </div>
+        <div class="panel-body">
+            {% if success %}
+                <p class="text-success"> دسته با موفقیت افزوده/ به هنگام شد</p>
+            {% endif %}
+
+            <form name="" action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {% for field in form %}
+                    <div class="row" style="background-color: #ffffff; margin: 0px;">
+                        <div style="padding: 5px">{{ field.label }}</div>
+                        <div>{{ field }}</div>
+                        <div>{{ field.errors }}</div>
+                    </div>
+                {% endfor %}
+
+                {% if not success %}
+                    <div class="row" style="background-color: #ffffff; margin: 0px;">
+
+                        <hr style="margin: 0"/>
+                    </div>
+                {% endif %}
+                                    <button id="submit-new-event" class="btn btn-primary btn-block" type="submit"
+                                style="width: 200px;">
+                            ثبت
+                        </button>
+</form>
+    </div>
+    </div>
+
+
+
+{% endblock %}
+
+
+

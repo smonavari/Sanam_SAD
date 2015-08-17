@@ -1,0 +1,66 @@
+{% extends "headerAfterLogin.html" %}
+{% load staticfiles %}
+{% block head %}
+    <link rel="stylesheet" href="{% static "nCss.css" %}" type="text/css">
+{% endblock %}
+{% block main %}
+    <style type="text/css">
+ body { background-color:rgba(255,0,0,0); }
+</style>
+
+<div class="floated_right">
+<div class="panel panel-default" >
+  <div class="panel-body">
+    <table>
+    	<tr>
+    		<td width="30%">
+                {% with MEDIA_URL|add:request.user.userProfile.photo.url as urll %}
+    			    <img width="150px"src="{{ urll }}">
+                {% endwith %}
+    		</td>
+    		<td>
+    			<p>
+    				<h2 style="font-family:aharoni;font-size:25px;"><strong>{{request.user.username }}</strong></h2>
+    			</p>
+                   
+    		</td>
+    	</tr>
+    </table>
+  </div>
+</div>
+<!-- control part-->
+<div class="panel panel-default">
+  <div class="panel-body">
+
+    <div id="ProfileTab">
+<div id='cssmenu'>
+<ul>
+  <li class='active has-sub'><a data-toggle="tab" href="#EventOrg"><span> لیست خرید های انجام شده</span></a></li>
+
+</ul>
+</div>
+<div class="tab-content" style="background-color: rgba(0,0,0,0)">
+
+  <div id="EventOrg" class="tab-pane fade in active">
+  <table>
+        {% for order in user.buyer.all %}
+            <tr>
+            <td>شماره رهگیری</td>
+            <td>{{ order.pursuitNum }}</td>
+            <td>تاریخ خرید</td>
+            <td>{{ order.date }}</td>
+            <td><form method="post" action="print/{{ order.pursuitNum}}">
+                {% csrf_token %}
+                <input type="submit" value="چاپ رسید">
+            </form></td>
+          </tr>
+        {% endfor %}
+   </table>
+  </div>
+</div>
+</div>
+    
+  </div>
+</div>
+    </div>
+{% endblock %}

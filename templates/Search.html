@@ -1,0 +1,47 @@
+{% extends "headerAfterLogin.html" %}
+{% load staticfiles %}
+
+{% block head %}
+   <link rel="stylesheet" href="css/search.css">
+
+
+
+    <link rel="stylesheet" href="css/maincssfile.css">
+
+
+    <title>سامانه خرید بلیت اینترنتی صنم</title>
+    <style type="text/css">
+  	     body { background-color:rgba(255,0,0,0); }
+    </style>
+
+</head>
+ {% endblock %}
+ {% block main %}
+<h3 style="color: #ffffff">
+{{ title }}
+</h3>
+<!-- Results-->
+
+            {% for event in events %}
+                    <div class="sizePanel col-md-4">
+                        <div class="thumbnail " >
+                            {% with MEDIA_URL|add:event.EventImage.url as urll %}
+                                <img src="{{ urll }}"  class="resultpic"alt="user1">
+                            {%endwith%}
+                            <div class="caption">
+                                <h3>{{ event.title }}</h3>
+                                <h4>{{ event.address }}</h4>
+                                
+                                    <p>
+                                        میانگین امتیاز
+                                        {{ event.avgrate }}
+                                    </p>
+                                    <p><a href="/events/{{ event.pk }}" class="btn btn-danger" style="margin-left: 100px" role="button">بیشتر >></a></p>
+                             </div>
+                    </div>
+                    </div>
+            {% endfor %}
+
+
+{% endblock %}
+

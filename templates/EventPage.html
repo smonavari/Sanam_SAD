@@ -1,0 +1,162 @@
+{% extends "header.html" %}
+{% load staticfiles %}
+
+{% block head %}
+   <link rel="stylesheet" href="{% static "css/EventPageCssfile.css"%}" type="text/css">
+
+   <link href="{% static "css/star-rating.min.css"%}" media="all" rel="stylesheet" type="text/css" />
+   <script src="{% static "js/star-rating.min.js"%}" type="text/javascript"></script>
+    <script src="{% static "js/post.js"%}" type="text/javascript"></script>
+     <link rel="stylesheet" href="{% static "css/post.css"%}" type="text/css">
+
+   <script
+      src="http://maps.googleapis.com/maps/api/js">
+   </script>
+
+   <script>
+      function initialize() {
+         var mapProp = {
+         center:new google.maps.LatLng(35.772807, 51.442304),
+         zoom:15,
+         mapTypeId:google.maps.MapTypeId.ROADMAP
+         };
+      var map=new google.maps.Map(document.getElementById("googleMap"), mapProp);
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+   </script>
+
+
+<style>
+  	 body { background-color:rgba(255,0,0,0); }
+</style>
+
+{% endblock %}
+
+{% block main %}
+
+        <div dir='rtl'>
+
+               <div class="bs-example">
+                   <b style="font-size: 27px;color: white;">{{ Event.title }}</b>
+                {% if user.is_authenticated %}
+               <a href="/ticktypesel/{{ Event.pk }}" class="btn btn-lg btn-primary" data-toggle="modal" style="float: right;margin-right: 7%;"><span class="glyphicon glyphicon-shopping-cart"></span>سبد خرید</a>
+                {% endif %}
+
+
+           <div style="color: white">
+               امتیاز
+               {{ Event.avgrate }}
+               /5
+               </div>
+                   <br />
+{% if user.is_authenticated %}
+                    <form id="comment-form" method="post" action="">
+            <div id="ratings">
+            <button  type='button'  class="btn btn-default" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
+            <input id="rate" type="number" class="rating" min=1 max=5 step=1 data-size="sm" data-rtl="true" name="rate" value="{{ rating }}">
+            </button>
+            </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+                  </div>
+                  <div class="modal-body">
+
+                        {% csrf_token %}
+                      <div class="form-group">
+
+                        <label for="recipient-name" class="control-label">{{Event.title }}</label>
+                        <p>
+                        <label class="control-label" id="ratingpop"><div class="caption"></div></label></p>
+
+                      </div>
+                      <h3 style="color: #000000;"> جهت ثبت امتیاز روی ادامه کلیک کنید</h3>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+                    <button type="submit" id="commentBtn" class="btn btn-primary" >ادامه</button>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+            </form>
+{% endif %}
+            {% with MEDIA_URL|add:Event.EventImage.url as urll %}
+                <img src="{{ urll }}" style="height: 500px">
+            {% endwith %}
+                   
+        <!-- here is the end of the main part of the page-->
+         <!-- describtion tag -->
+           <h4 style="color: white">توضیحات</h4>
+            <div id="describtion-tag">
+                {{ Event.dscp }}
+            
+            </div>
+            <h4 style="color: white">آدرس</h4>
+            <div id='address-tag'>
+            	
+	           <p style="color: white">
+	          {{ Event.address }}
+
+                </p>
+                </div>
+             <h4 style="color: #ffffff">
+                 تاریخ شروع فروش
+             </h4>
+            	           <p style="color: white" class="tag">
+	          {{ Event.startTime }}
+                </p>
+
+                             <h4 style="color: #ffffff">
+                 مهلت خرید
+             </h4>
+
+             <p style="color: white" class="tag">
+	          {{ Event.endDate }}
+                </p>
+                                           <h4 style="color: #ffffff">
+      دسته
+             </h4>
+
+             <p style="color: white" class="tag">
+	          {{ Event.category.name }}
+                </p>
+                             <h4 style="color: #ffffff">
+       زیر دسته
+             </h4>
+
+             <p style="color: white" class="tag">
+	          {{ Event.subcategory.name }}
+                </p>
+
+	           
+
+           <div id="googleMap" style="width:50%;height:50%; margin-right: auto;margin-left: auto;margin-top: 2%"></div>
+
+
+
+   </div>
+
+    <div class="container">
+
+                        <fieldset class="inputs">
+                <textarea type="text" name="post" id="text-box" placeholder="نظر دهید..."></textarea>
+            </fieldset>
+            <fieldset class="actions">
+                <button type="submit" id="submit">ارسال</button>
+            </fieldset>
+
+
+  <div id="post-container">
+
+  </div>
+</div>
+  </table>
+  </div>
+{% endblock %}
