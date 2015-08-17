@@ -70,6 +70,7 @@ class TicketType(models.Model):
     location = models.TextField()
     time = models.DateTimeField(null=True)
     capacity = models.IntegerField(default=0)
+    soldnum = models.IntegerField(default=0)
 
 class Ticket(models.Model):
     ticketType = models.ForeignKey(TicketType)

@@ -45,61 +45,54 @@
   
   <div id="events" class="tab-pane fade">
     <h3>گزارش رویداد</h3>
-<form class="myForm">
+<form class="myForm" action="adminsearch" method="post" >
+    {% csrf_token %}
 <table><tr>
 <td><span>از </span></td>
-<td><input style="width:90%;" value="2015-11-30" name='birthdate' type='date' class="form-control" placeholder="Date de naissance"/></td>
+<td><input style="width:90%;" value="2015-11-30" name='first' type='date' class="form-control" placeholder="Date de naissance"/></td>
 <td><span>تا </span></td>
-<td><input style="width:90%;"value="2015-11-30" name='birthdate' type='date' class="form-control" placeholder="Date de naissance"/></td>
-<td><button >جست و جو</button></td>
+<td><input style="width:90%;"value="2015-11-30" name='last' type='date' class="form-control" placeholder="Date de naissance"/></td>
+<td><input type="submit" value="جست و جو"></td>
 </tr></table>
 </form>
 
-     <table class="table table-condensed" >
+ <table class="table table-condensed" >
     <thead>
       <tr >
         <th>شماره رویداد</th>
         <th>نام رویداد</th>
-		<th>دسته</th>
 		<th>زیر دسته</th>
-		<th>بلیت های فروخته شده</th>
-        <th>بلیت های فروخته نشده</th>
-		<th>کل قیمت فروخته شده</th>
-		 <th>تاریخ</th>
-		 <th>زمان</th>
-		 <th>شرایط</th>
+        <th>تاریخ شروع</th>
+        <th>تعداد بلیت فروخته شده</th>
+        <th>تعداد بلیت مانده</th>
+		<th>درآمد کل</th>
       </tr>
     </thead>
 
     <tbody>
+    {% for event in events %}
       <tr>
-        <td>652856</td>
-        <td>غرور و تعصب</td>
-        <td>هنر</td>
-		<td>فیلم</td>
-		<td>156</td>
-		<td>44</td>
-		<td>5624$</td>
-		<td>2015/2/5</td>
-		<td>17:00</td>
-		<td>پذیرفته شده</td>
-		<td><button>تایید</button></td>
+        <td>{{ event.pk }}</td>
+        <td>{{ event.title }}</td>
+        <td>{{ event.subcategory.name }}</td>
+		<td>{{ event.startTime }}</td>
+		{% for key, value in  sell.items %}
+		    {% if key == event %}
+                <td>{{ value }}</td>
+            {% endif %}
+		{% endfor %}
+		{% for key, value in  unsell.items %}
+		    {% if key == event %}
+                <td>{{ value }}</td>
+            {% endif %}
+		{% endfor %}
+        {% for key, value in  cost.items %}
+		    {% if key == event %}
+                <td>{{ value }}</td>
+            {% endif %}
+		{% endfor %}
       </tr>
-
-      <tr>
-        <td>524565</td>
-        <td>نمایش شیر</td>
-        <td>خانوادگی</td>
-		<td>سیرک</td>
-		<td>111</td>
-		<td>91</td>
-		<td>3250$</td>
-		<td>2015/5/8</td>
-		<td>16:20</td>
-		<td>در انتظار</td>
-		<td><button>تایید</button></td>
-      </tr>
-
+    {% endfor %}
     </tbody>
 
   </table>
